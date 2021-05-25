@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import register from './api/routes/auth.js';
 import login from './api/routes/auth.js';
-import update from './api/routes/users.js'
+import modifyDelete from './api/routes/users.js';
+
 import cors from 'cors';
 
 import bodyParser from 'body-Parser';
@@ -29,7 +30,8 @@ app.use(bodyParser.urlencoded({limit:"30mb",extended:true}))
 
 app.use('/auth',register)
 app.use('/auth',login)
-app.use('/users',update)
+app.use('/users',modifyDelete)
+
 app.listen(5000, ()=>{
     console.log("listening on port 5000")
 })
