@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import register from './api/routes/auth.js';
 import login from './api/routes/auth.js';
 import modifyDelete from './api/routes/users.js';
-
+import posts from './api/routes/posts.js'
 import cors from 'cors';
 
 import bodyParser from 'body-Parser';
@@ -31,6 +31,7 @@ app.use(bodyParser.urlencoded({limit:"30mb",extended:true}))
 app.use('/auth',register)
 app.use('/auth',login)
 app.use('/users',modifyDelete)
+app.use('/posts',posts)
 
 app.listen(5000, ()=>{
     console.log("listening on port 5000")
