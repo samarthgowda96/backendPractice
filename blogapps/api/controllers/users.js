@@ -1,0 +1,26 @@
+import User from '../models/user.js';
+import bcrypt from 'bcrypt';
+
+export const updateUser= async (req, res)=>{
+    if(req.body.userId===req.params._id){
+        if(req.body.password){
+            const salt= await bcrypt.genSalt(10);
+            const hashedPassword= await bcrypt.hash(req.body.password,salt)
+        }
+        try {
+            const updatedUser = await User.findByIdAndUpdate(req.params.id,{
+                $set:req.body,
+            },{new:true});
+            res.status(200).json(updatedUser)
+            
+        } catch (error) {
+            res.status(500).json(error)
+            
+        }
+    }
+    else{
+        res.status(401).json("you can update only your account")
+
+    }
+
+}
