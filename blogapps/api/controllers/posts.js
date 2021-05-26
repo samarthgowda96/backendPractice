@@ -1,5 +1,3 @@
-import User from '../models/user.js';
-import bcrypt from 'bcrypt';
 import Post from '../models/post.js'
 
 export const createPost= async (req, res)=>{
@@ -70,4 +68,31 @@ export const getPost=async(req, res)=>{
         res.status(500).json(error)
         
     }
+}
+
+export const  getAllPost = async (req, res)=>{
+  const username = req.query.user;
+  const catName=req.query.cat;
+try {
+  let posts;
+  if(username){
+    posts = await Post.find({username})
+  }else if(catName){
+    posts= await Post.find({categories:{
+      $in:[catName]
+
+    }
+  })
+}
+  else{
+    posts= await Post.find()
+  }
+   
+
+  res.status(200).json(posts)
+  
+} catch (error) {
+  res.status(500).json(error)
+  
+  }
 }
